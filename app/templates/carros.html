@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carros Registrados - Estacionamiento LIRA</title>
+    <style>
+        /* Estilos generales */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Estilos para el contenido */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #343a40;
+            text-align: center;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            color: #343a40;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .logout-link {
+            color: #dc3545;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .edit-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .back-link, .logout-link {
+                font-size: 14px;
+            }
+
+            .edit-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table, th, td {
+                display: block;
+                width: 100%;
+            }
+
+            th {
+                display: none;
+            }
+
+            td {
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+                border: none;
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 10px;
+                font-weight: bold;
+                text-align: left;
+                white-space: nowrap;
+            }
+
+            .back-link, .logout-link {
+                display: block;
+                text-align: center;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Bienvenido, {{ nombre }}</h2>
+
+    <h3>Carros Registrados</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Placa</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Color</th>
+                <th>Propietario</th>
+                <th>Precio Pagado</th>
+                <th>Estatus</th>
+                <th>Descripción</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for carro in carros %}
+            <tr>
+                <td data-label="ID">{{ carro.id }}</td>
+                <td data-label="Placa">{{ carro.placa }}</td>
+                <td data-label="Marca">{{ carro.marca }}</td>
+                <td data-label="Modelo">{{ carro.modelo }}</td>
+                <td data-label="Color">{{ carro.color }}</td>
+                <td data-label="Propietario">{{ carro.propietario }}</td>
+                <td data-label="Precio Pagado">${{ carro.precio_pagado }}</td>
+                <td data-label="Estatus">{{ carro.status_pago }}</td>
+                <td data-label="Descripción">{{ carro.descripcion }}</td>
+                <td data-label="Editar"><a href="{{ url_for('editar_pago', carro_id=carro.id) }}" class="edit-link">Editar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if es_admin %}
+        <a href="{{ url_for('admin') }}" class="back-link">Volver al panel de administración</a>
+    {% else %}
+        <a href="{{ url_for('registro_autos') }}" class="back-link">Registrar nuevo auto</a>
+    {% endif %}
+    <p><a href="{{ url_for('logout') }}" class="logout-link">Cerrar sesión</a></p>
+</div>
+
+</body>
+</html>

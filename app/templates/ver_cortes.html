@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Cortes de Caja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        table tr:hover {
+            background-color: #f9f9f9;
+        }
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cortes de Caja Realizados</h1>
+        
+        <!-- Tabla para mostrar los cortes de caja -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha del Corte</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for corte in cortes %}
+                <tr>
+                    <td>{{ corte['id'] }}</td>
+                    <td>{{ corte['fecha_corte'] }}</td>
+                    <td>${{ corte['total'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Total de todos los cortes -->
+        <div class="total">
+            <strong>Total acumulado de todos los cortes:</strong> ${{ total_cortes }}
+        </div>
+        
+        <!-- Botón para volver a la página principal -->
+        <a href="{{ url_for('cartera') }}">Volver</a>
+    </div>
+</body>
+</html>
