@@ -10,10 +10,10 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 csrf = CSRFProtect(app)
 
 # Configuración para MySQL
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'estacionamiento'
+app.config['MYSQL_HOST'] = '34.16.67.73'  # IP pública de tu base de datos
+app.config['MYSQL_USER'] = 'estacionamiento12-34'
+app.config['MYSQL_PASSWORD'] = 'hId~kjPuB`n+GR$e'  # Reemplaza con la contraseña real
+app.config['MYSQL_DB'] = 'estacionamiento'  # Reemplaza con el nombre real de la base de datos
 
 # Función para conectar a la base de datos MySQL
 def get_db_connection():
